@@ -128,7 +128,6 @@ export const LoginScreen: React.FC<Props> = ({ navigation }) => {
             onChangeText={t => { setPassword(t); clearErrors(); }}
             isPassword
             error={passwordError}
-            rightAction={{ label: 'Forgot?', onPress: () => { } }}
           />
 
           {/* Inline auth error — shown instead of a modal Alert */}
