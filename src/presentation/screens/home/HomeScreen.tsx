@@ -191,9 +191,9 @@ export const HomeScreen: React.FC<Props> = ({ navigation }) => {
         colors={[colors.gradientStart, colors.gradientEnd]}
         style={styles.header}>
         <View style={styles.headerTop}>
-          {/* <View style={styles.gridIcon}>
+          <View style={styles.gridIcon}>
             <Text style={styles.gridIconText}>⊞</Text>
-          </View> */}
+          </View>
           <TouchableOpacity style={styles.menuBtn} onPress={handleLogout}>
             <Text style={styles.menuText}>···</Text>
           </TouchableOpacity>
@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: spacing.md,
     gap: spacing.sm,
-    justifyContent: 'flex-end',
+    justifyContent: "space-between"
   },
   gridIcon: {
     width: 36,

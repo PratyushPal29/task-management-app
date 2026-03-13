@@ -27,9 +27,24 @@ import { spacing, radii, shadows } from '../../../core/theme/spacing';
 const createUseCase = new CreateTaskUseCase(taskRepository);
 const updateUseCase = new UpdateTaskUseCase(taskRepository);
 
-const PRIORITIES: { label: string; value: Priority; color: string; bg: string }[] = [
-  { label: '🔴 High', value: 'high', color: colors.priorityHigh, bg: '#FFECF0' },
-  { label: '🟡 Medium', value: 'medium', color: colors.priorityMedium, bg: '#FFF8E1' },
+const PRIORITIES: {
+  label: string;
+  value: Priority;
+  color: string;
+  bg: string;
+}[] = [
+  {
+    label: '🔴 High',
+    value: 'high',
+    color: colors.priorityHigh,
+    bg: '#FFECF0',
+  },
+  {
+    label: '🟡 Medium',
+    value: 'medium',
+    color: colors.priorityMedium,
+    bg: '#FFF8E1',
+  },
   { label: '🟢 Low', value: 'low', color: colors.priorityLow, bg: '#E8FAF6' },
 ];
 
@@ -45,8 +60,12 @@ export const AddEditTaskScreen: React.FC<Props> = ({ navigation, route }) => {
   const user = useAtomValue(authUserAtom);
   const [title, setTitle] = useState(editTask?.title ?? '');
   const [description, setDescription] = useState(editTask?.description ?? '');
-  const [dueDate, setDueDate] = useState<Date>(editTask?.dueDate ? new Date(editTask.dueDate) : new Date());
-  const [priority, setPriority] = useState<Priority>(editTask?.priority ?? 'medium');
+  const [dueDate, setDueDate] = useState<Date>(
+    editTask?.dueDate ? new Date(editTask.dueDate) : new Date(),
+  );
+  const [priority, setPriority] = useState<Priority>(
+    editTask?.priority ?? 'medium',
+  );
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [loading, setLoading] = useState(false);
   const [titleError, setTitleError] = useState('');
@@ -84,7 +103,10 @@ export const AddEditTaskScreen: React.FC<Props> = ({ navigation, route }) => {
       }
       navigation.goBack();
     } catch (error: any) {
-      Alert.alert('Error', error.message || 'Failed to save task. Please try again.');
+      Alert.alert(
+        'Error',
+        error.message || 'Failed to save task. Please try again.',
+      );
     } finally {
       setLoading(false);
     }
@@ -101,15 +123,18 @@ export const AddEditTaskScreen: React.FC<Props> = ({ navigation, route }) => {
   return (
     <KeyboardAvoidingView
       style={styles.flex}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+    >
       {/* Header */}
       <LinearGradient
         colors={[colors.gradientStart, colors.gradientEnd]}
-        style={styles.header}>
+        style={styles.header}
+      >
         <TouchableOpacity
           onPress={() => navigation.goBack()}
-          style={styles.backBtn}>
-          <Text style={styles.backText}>← Back</Text>
+          style={styles.backBtn}
+        >
+          <Text style={styles.backText}>Back</Text>
         </TouchableOpacity>
         <Text style={styles.headerTitle}>
           {isEdit ? 'Edit Task' : 'New Task'}
@@ -118,7 +143,8 @@ export const AddEditTaskScreen: React.FC<Props> = ({ navigation, route }) => {
 
       <ScrollView
         contentContainerStyle={styles.content}
-        keyboardShouldPersistTaps="handled">
+        keyboardShouldPersistTaps="handled"
+      >
         {/* Title */}
         <AppTextInput
           label="Task Title *"
@@ -143,7 +169,8 @@ export const AddEditTaskScreen: React.FC<Props> = ({ navigation, route }) => {
         <Text style={styles.fieldLabel}>DUE DATE</Text>
         <TouchableOpacity
           style={styles.dateBox}
-          onPress={() => setShowDatePicker(true)}>
+          onPress={() => setShowDatePicker(true)}
+        >
           <Text style={styles.dateIcon}>📅</Text>
           <Text style={styles.dateText}>{formatDate(dueDate)}</Text>
         </TouchableOpacity>
@@ -161,7 +188,9 @@ export const AddEditTaskScreen: React.FC<Props> = ({ navigation, route }) => {
         )}
 
         {/* Priority */}
-        <Text style={[styles.fieldLabel, { marginTop: spacing.md }]}>PRIORITY</Text>
+        <Text style={[styles.fieldLabel, { marginTop: spacing.md }]}>
+          PRIORITY
+        </Text>
         <View style={styles.priorityRow}>
           {PRIORITIES.map(p => (
             <TouchableOpacity
@@ -174,12 +203,14 @@ export const AddEditTaskScreen: React.FC<Props> = ({ navigation, route }) => {
                 },
               ]}
               onPress={() => setPriority(p.value)}
-              activeOpacity={0.7}>
+              activeOpacity={0.7}
+            >
               <Text
                 style={[
                   styles.priorityChipText,
                   priority === p.value && { color: p.color, fontWeight: '700' },
-                ]}>
+                ]}
+              >
                 {p.label}
               </Text>
             </TouchableOpacity>
@@ -215,8 +246,20 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 24,
     borderBottomRightRadius: 24,
   },
-  backBtn: { marginBottom: spacing.xs },
-  backText: { color: 'rgba(255,255,255,0.85)', fontSize: 14, fontWeight: '500' },
+  backBtn: {
+    marginBottom: spacing.xs,
+    width: 50,
+    height: 36,
+    borderRadius: 10,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  backText: {
+    color: 'rgba(255,255,255,0.85)',
+    fontSize: 14,
+    fontWeight: '500',
+  },
   headerTitle: {
     color: colors.white,
     fontSize: 26,

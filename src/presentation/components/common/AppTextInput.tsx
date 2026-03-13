@@ -22,10 +22,12 @@ export const AppTextInput: React.FC<AppTextInputProps> = ({
   error,
   rightAction,
   isPassword,
+  style,
   ...rest
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [focused, setFocused] = useState(false);
+  const isMultiline = rest.multiline;
 
   return (
     <View style={styles.container}>
@@ -33,11 +35,12 @@ export const AppTextInput: React.FC<AppTextInputProps> = ({
       <View
         style={[
           styles.inputWrapper,
+          isMultiline && styles.inputWrapperMultiline,
           focused && styles.inputFocused,
           !!error && styles.inputError,
         ]}>
         <TextInput
-          style={styles.input}
+          style={[styles.input, style]}
           placeholderTextColor={colors.textDisabled}
           secureTextEntry={isPassword && !showPassword}
           onFocus={() => setFocused(true)}
@@ -78,9 +81,13 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primaryBg,
     borderRadius: radii.lg,
     paddingHorizontal: spacing.md,
-    height: 52,
+    paddingVertical: spacing.sm,
+    minHeight: 52,
     borderWidth: 1.5,
     borderColor: 'transparent',
+  },
+  inputWrapperMultiline: {
+    alignItems: 'flex-start',
   },
   inputFocused: {
     borderColor: colors.primary,
